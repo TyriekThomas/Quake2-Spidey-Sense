@@ -377,7 +377,8 @@ A generic function to handle the basics of weapon thinking
 #define FRAME_IDLE_FIRST		(FRAME_FIRE_LAST + 1)
 #define FRAME_DEACTIVATE_FIRST	(FRAME_IDLE_LAST + 1)
 
-void Weapon_Generic (edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_DEACTIVATE_LAST, int *pause_frames, int *fire_frames, void (*fire)(edict_t *ent))
+
+void Weapon_Generic2 (edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_DEACTIVATE_LAST, int *pause_frames, int *fire_frames, void (*fire)(edict_t *ent))
 {
 	int		n;
 
@@ -529,7 +530,44 @@ void Weapon_Generic (edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST,
 			ent->client->weaponstate = WEAPON_READY;
 	}
 }
+/////////////////////////////////////////////////////////////////////////////////////////////
+qboolean ApplyHaste(edict_t* ent)
+{
+	static gitem_t* tech = NULL;
 
+	if (!tech)
+		tech = FindItemByClassname("item_tech3");
+	if (tech && ent->client &&
+		ent->client->pers.inventory[ITEM_INDEX(tech)])
+		return true;
+	return false;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//ZOID
+void Weapon_Generic(edict_t* ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_DEACTIVATE_LAST, int* pause_frames, int* fire_frames, void (*fire)(edict_t* ent))
+{
+	int oldstate = ent->client->weaponstate;
+
+	Weapon_Generic2(ent, FRAME_ACTIVATE_LAST, FRAME_FIRE_LAST,
+		FRAME_IDLE_LAST, FRAME_DEACTIVATE_LAST, pause_frames,
+		fire_frames, fire);
+
+	// run the weapon frame again if hasted
+	if (stricmp(ent->client->pers.weapon->pickup_name, "WEB") == 0 &&
+		ent->client->weaponstate == WEAPON_FIRING)
+		return;
+
+	if ((ApplyHaste(ent) ||
+		(Q_stricmp(ent->client->pers.weapon->pickup_name, "WEB") == 0 &&
+			ent->client->weaponstate != WEAPON_FIRING))
+		&& oldstate == ent->client->weaponstate) {
+		Weapon_Generic2(ent, FRAME_ACTIVATE_LAST, FRAME_FIRE_LAST,
+			FRAME_IDLE_LAST, FRAME_DEACTIVATE_LAST, pause_frames,
+			fire_frames, fire);
+	}
+}
+//ZOID
 
 /*
 ======================================================================
@@ -745,7 +783,7 @@ void Weapon_GrenadeLauncher (edict_t *ent)
 	static int	pause_frames[]	= {34, 51, 59, 0};
 	static int	fire_frames[]	= {6, 0};
 
-	Weapon_Generic (ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_grenadelauncher_fire);
+	Weapon_Generic2 (ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_grenadelauncher_fire);
 }
 
 /*
@@ -801,7 +839,7 @@ void Weapon_RocketLauncher (edict_t *ent)
 	static int	pause_frames[]	= {25, 33, 42, 50, 0};
 	static int	fire_frames[]	= {5, 0};
 
-	Weapon_Generic (ent, 4, 12, 50, 54, pause_frames, fire_frames, Weapon_RocketLauncher_Fire);
+	Weapon_Generic2 (ent, 4, 12, 50, 54, pause_frames, fire_frames, Weapon_RocketLauncher_Fire);
 }
 
 

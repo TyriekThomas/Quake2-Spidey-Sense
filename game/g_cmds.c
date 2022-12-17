@@ -19,8 +19,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 #include "g_local.h"
 #include "m_player.h"
-
-
+//#include "g_spidey_moves.h"
+#include "g_web.h"//// ---------------------> Spidey MOD
+//void getWEB(edict_t* ent) {
+//	
+//	if (Q_stricmp(cmd, "web1") == 0) {
+//		CTFWeapon_Grapple(ent);
+//	}
+//	else if ((Q_stricmp(cmd, "web2") == 0)) {
+//		void CTFPlayerResetGrapple(ent);
+//	}
+//}
 char *ClientTeam (edict_t *ent)
 {
 	char		*p;
@@ -353,7 +362,165 @@ void Cmd_Notarget_f (edict_t *ent)
 	gi.cprintf (ent, PRINT_HIGH, msg);
 }
 
+void Cmd_spidey_1(edict_t* ent) {
 
+
+	char* msg;
+
+	if (deathmatch->value && !sv_cheats->value)
+	{
+		gi.cprintf(ent, PRINT_HIGH, "You must run the server with '+set cheats 1' to enable this command.\n");
+		return;
+	}
+
+	if (ent->movetype == MOVETYPE_NOCLIP)
+	{
+		ent->movetype = MOVETYPE_WALK;
+		msg = "noclip OFF\n";
+	}
+	else
+	{
+		ent->movetype = MOVETYPE_NOCLIP;
+		msg = "noclip ON\n";
+	}
+
+	//gi.cprintf(ent, PRINT_HIGH, msg);
+
+
+}
+
+
+void Cmd_spidey_2(edict_t* ent) {
+
+
+	char* msg;
+
+	if (deathmatch->value && !sv_cheats->value)
+	{
+		gi.cprintf(ent, PRINT_HIGH, "You must run the server with '+set cheats 1' to enable this command.\n");
+		return;
+	}
+
+	if (ent->movetype == MOVETYPE_PUSH)
+	{
+		ent->movetype = MOVETYPE_WALK;
+		msg = "noclip OFF\n";
+	}
+	else
+	{
+		ent->movetype = MOVETYPE_PUSH;
+		msg = "noclip ON\n";
+	}
+
+	//gi.cprintf(ent, PRINT_HIGH, msg);
+
+
+}
+
+void Cmd_spidey_3(edict_t* ent) {
+
+
+	char* msg;
+
+	if (deathmatch->value && !sv_cheats->value)
+	{
+		gi.cprintf(ent, PRINT_HIGH, "You must run the server with '+set cheats 1' to enable this command.\n");
+		return;
+	}
+
+	if (ent->movetype == MOVETYPE_FLY)
+	{
+		ent->movetype = MOVETYPE_WALK;
+		msg = "noclip OFF\n";
+	}
+	else
+	{
+		ent->movetype = MOVETYPE_FLY;
+		msg = "noclip ON\n";
+	}
+
+	//gi.cprintf(ent, PRINT_HIGH, msg);
+
+
+}
+void Cmd_spidey_4(edict_t* ent) {
+
+
+	char* msg;
+
+	if (deathmatch->value && !sv_cheats->value)
+	{
+		gi.cprintf(ent, PRINT_HIGH, "You must run the server with '+set cheats 1' to enable this command.\n");
+		return;
+	}
+
+	if (ent->movetype == MOVETYPE_BOUNCE)
+	{
+		ent->movetype = MOVETYPE_WALK;
+		msg = "noclip OFF\n";
+	}
+	else
+	{
+		ent->movetype = MOVETYPE_BOUNCE;
+		msg = "noclip ON\n";
+	}
+
+	//gi.cprintf(ent, PRINT_HIGH, msg);
+
+
+}
+
+void Cmd_spidey_5(edict_t* ent) {
+
+
+	char* msg;
+
+	if (deathmatch->value && !sv_cheats->value)
+	{
+		gi.cprintf(ent, PRINT_HIGH, "You must run the server with '+set cheats 1' to enable this command.\n");
+		return;
+	}
+
+	if (ent->movetype == MOVETYPE_STEP)
+	{
+		ent->movetype = MOVETYPE_WALK;
+		msg = "noclip OFF\n";
+	}
+	else
+	{
+		ent->movetype = MOVETYPE_STEP;
+		msg = "noclip ON\n";
+	}
+
+	//gi.cprintf(ent, PRINT_HIGH, msg);
+
+
+}
+void Cmd_spidey_6(edict_t* ent) {
+
+
+	char* msg;
+
+	if (deathmatch->value && !sv_cheats->value)
+	{
+		gi.cprintf(ent, PRINT_HIGH, "You must run the server with '+set cheats 1' to enable this command.\n");
+		return;
+	}
+
+	if (ent->movetype == MOVETYPE_STOP)
+	{
+		ent->movetype = MOVETYPE_WALK;
+		msg = "noclip OFF\n";
+	}
+	else
+	{
+		ent->movetype = MOVETYPE_STEP;
+		msg = "noclip ON\n";
+	}
+
+	//gi.cprintf(ent, PRINT_HIGH, msg);
+
+}
 /*
 ==================
 Cmd_Noclip_f
@@ -382,7 +549,7 @@ void Cmd_Noclip_f (edict_t *ent)
 		msg = "noclip ON\n";
 	}
 
-	gi.cprintf (ent, PRINT_HIGH, msg);
+	//gi.cprintf (ent, PRINT_HIGH, msg);
 }
 
 
@@ -914,6 +1081,22 @@ void ClientCommand (edict_t *ent)
 
 	cmd = gi.argv(0);
 
+	///---------------------------------------------------------->Spidey MOD
+	if (Q_stricmp(cmd, "web1") == 0) {
+		Weapon_WEB(ent);
+		return;
+	}
+	else if ((Q_stricmp(cmd, "web2") == 0)) {
+		PlayerResetWEB(ent);
+		return;
+	}
+	else if ((Q_stricmp(cmd, "web3") == 0)) {
+		PlayerResetWEB(ent);
+		return;
+	}
+	///---------------------------------------------------------->Spidey MOD
+
+
 	if (Q_stricmp (cmd, "players") == 0)
 	{
 		Cmd_Players_f (ent);
@@ -937,6 +1120,67 @@ void ClientCommand (edict_t *ent)
 	if (Q_stricmp (cmd, "help") == 0)
 	{
 		Cmd_Help_f (ent);
+		return;
+	}
+	///////////////////////////////////////////////Spidey MOD
+	////////////////////////////////////////Spidey Sense
+
+	if (Q_stricmp(cmd, "spideys") == 0)
+	{
+		Cmd_SpideyS (ent);
+		return;
+	}
+	if (Q_stricmp(cmd, "spideyct") == 0)
+	{
+		Cmd_SpideyCt(ent);
+		return;
+	}
+
+	if (Q_stricmp(cmd, "spideyinvisible") == 0)
+	{
+		Cmd_spidey_1(ent);
+	}
+	if (Q_stricmp(cmd, "spideymove") == 0)
+	{
+		Cmd_spidey_2(ent);
+	}
+	if (Q_stricmp(cmd, "spideyfly") == 0)
+	{
+		Cmd_spidey_3(ent);
+	}
+	if (Q_stricmp(cmd, "spideybounce") == 0)
+	{
+		Cmd_spidey_4(ent);
+	}
+	if (Q_stricmp(cmd, "spideyjump") == 0)
+	{
+		Cmd_spidey_5(ent);
+	}
+	if (Q_stricmp(cmd, "spideystone") == 0)
+	{
+		Cmd_spidey_6(ent);
+	}
+
+
+
+	if (Q_stricmp(cmd, "scan") == 0)
+	{
+		/*
+		gi.cprintf(ent, PRINT_HIGH, "%s", "origin....");
+		gi.cprintf(ent, PRINT_HIGH, "%s","");
+		gi.cprintf(ent, PRINT_HIGH, "%s", "gamepoint0....");
+		gi.cprintf(ent, PRINT_HIGH, "%s", game.spawnpoint[0]);
+		gi.cprintf(ent, PRINT_HIGH, "%s", "gamepoint1....");
+		gi.cprintf(ent, PRINT_HIGH, "%s", game.spawnpoint[1]);
+		gi.cprintf(ent, PRINT_HIGH, "%s", "gamepoint2....");
+		gi.cprintf(ent, PRINT_HIGH, "%s", game.spawnpoint[2]);
+		*/
+		
+		//Cmd_spidey_scan(ent->s.origin);
+		gi.cprintf(ent, PRINT_HIGH, "%s", "origin....");
+		gi.cprintf(ent, PRINT_HIGH, "%s", ent->s.origin);
+		gi.cprintf(ent, PRINT_HIGH, "%s", "Enemy Rad Counter....");
+		//gi.cprintf(ent, PRINT_HIGH, "%s", spidey_enemycount);
 		return;
 	}
 

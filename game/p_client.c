@@ -383,6 +383,12 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				message = "tried to invade";
 				message2 = "'s personal space";
 				break;
+				//ZOID
+			case MOD_WEB:
+				message = "was caught by";
+				message2 = "'s web";
+				break;
+				//ZOID
 			}
 			if (message)
 			{
@@ -519,7 +525,7 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 
 //	self->solid = SOLID_NOT;
 	self->svflags |= SVF_DEADMONSTER;
-
+	PlayerResetWEB(self);
 	if (!self->deadflag)
 	{
 		self->client->respawn_time = level.time + 1.0;
@@ -610,10 +616,38 @@ void InitClientPersistant (gclient_t *client)
 
 	memset (&client->pers, 0, sizeof(client->pers));
 
-	item = FindItem("Blaster");
+	////////////////////////////////////////////////////////////////////---------------------------> Spidey MOD GET WEBSHOOTER
+	item = FindItem("WEBSHOOTER");
 	client->pers.selected_item = ITEM_INDEX(item);
 	client->pers.inventory[client->pers.selected_item] = 1;
+	////////////////////////////////////////////////////////////////////---------------------------> Spidey MOD GET WEBSHOOTER
 
+	////////////////////////////////////////////////////////////////////---------------------------> Spidey MOD GET WEBPULLER
+	item = FindItem("WEBPULLER");
+	client->pers.selected_item = ITEM_INDEX(item);
+	client->pers.inventory[client->pers.selected_item] = 1;
+	////////////////////////////////////////////////////////////////////---------------------------> Spidey MOD GET WEBPULLER
+
+	////////////////////////////////////////////////////////////////////---------------------------> Spidey MOD GET WEB
+	item = FindItem("WEB");
+	client->pers.selected_item = ITEM_INDEX(item);
+	client->pers.inventory[client->pers.selected_item] = 1;
+	////////////////////////////////////////////////////////////////////---------------------------> Spidey MOD GET WEB
+	//dprintf(game.spawnpoint[0]);
+	//dprintf(game.spawnpoint[1]);
+	//dprintf( "lllllllllllllllllllllllllllllll");
+	//locateScenes(client);
+	/*
+	SpawnEntities("base1", "monster_tank", game.spawnpoint[0]);
+	Com_DPrintf("Origin");
+	Com_DPrintf(client->pers.userinfo);
+	Com_DPrintf("SPOT");
+	Com_DPrintf(game.spawnpoint[0]);
+	Com_DPrintf(game.spawnpoint[1]);
+	Com_DPrintf(game.spawnpoint[2]);
+	//item = FindItem("Blaster");
+	//client->pers.inventory[ITEM_INDEX(item)] = 0;
+	*/
 	client->pers.weapon = item;
 
 	client->pers.health			= 100;
@@ -1599,6 +1633,13 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 		// set up for pmove
 		memset (&pm, 0, sizeof(pm));
+
+		////////////////////////////////////////////////////////////----------------> Spidey MOD Swing
+		//
+		if (client->WEB)
+			WEBPull(client->WEB);
+
+		//
 
 		if (ent->movetype == MOVETYPE_NOCLIP)
 			client->ps.pmove.pm_type = PM_SPECTATOR;

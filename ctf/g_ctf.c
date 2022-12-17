@@ -1389,6 +1389,8 @@ void CTFGrapplePull(edict_t *self)
 	}
 }
 
+
+
 void CTFFireGrapple (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int effect)
 {
 	edict_t	*grapple;
@@ -1425,6 +1427,8 @@ void CTFFireGrapple (edict_t *self, vec3_t start, vec3_t dir, int damage, int sp
 		grapple->touch (grapple, tr.ent, NULL, NULL);
 	}
 }	
+//////    Port to Single Player Game
+
 
 void CTFGrappleFire (edict_t *ent, vec3_t g_offset, int damage, int effect)
 {
