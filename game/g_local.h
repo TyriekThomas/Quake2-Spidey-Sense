@@ -81,6 +81,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #define BODY_QUEUE_SIZE		8
 
+
+
+
 typedef enum
 {
 	DAMAGE_NO,
@@ -230,6 +233,9 @@ typedef struct
 #define WEAP_HYPERBLASTER		9 
 #define WEAP_RAILGUN			10
 #define WEAP_BFG				11
+#define WEAP_WEB				12
+#define WEAP_WEBPULLER			13
+#define WEAP_WEBSHOOTER			14
 
 typedef struct gitem_s
 {
@@ -498,6 +504,7 @@ extern	int	body_armor_index;
 #define MOD_TRIGGER_HURT	31
 #define MOD_HIT				32
 #define MOD_TARGET_BLASTER	33
+#define MOD_WEB			34
 #define MOD_FRIENDLY_FIRE	0x8000000
 
 extern	int	meansOfDeath;
@@ -601,7 +608,13 @@ extern	gitem_t	itemlist[];
 //
 void Cmd_Help_f (edict_t *ent);
 void Cmd_Score_f (edict_t *ent);
-
+/////////////////////////////////////////////////////Spidey MOD
+////////////////////////////////////Spidey Sense
+void Cmd_SpideyS(edict_t* ent);
+//void Cmd_spideyLoc(edict_t* ent);
+//edict_t* spidey_rad(vec3_t origin);
+void Cmd_SpideyCt(edict_t* ent);
+int spidey_enemycount;
 //
 // g_items.c
 //
@@ -879,6 +892,7 @@ typedef struct
 // except for 'client->pers'
 struct gclient_s
 {
+
 	// known to server
 	player_state_t	ps;				// communicated by server to clients
 	int				ping;
@@ -902,6 +916,8 @@ struct gclient_s
 	qboolean	weapon_thunk;
 
 	gitem_t		*newweapon;
+
+
 
 	// sum up damage over an entire frame, so
 	// shotgun blasts give a single big kick
@@ -957,8 +973,17 @@ struct gclient_s
 
 	float		respawn_time;		// can respawn when time > this
 
+
+		///////////////////////////////////////////////////////////////////////////////new
+	//
+	void* WEB;		// entity
+	int			WEBstate;		// true if pulling
+	float		WEBreleasetime;	// time of release
+
 	edict_t		*chase_target;		// player we are chasing
 	qboolean	update_chase;		// need to update chase info?
+	
+
 };
 
 

@@ -290,6 +290,191 @@ void Cmd_Score_f (edict_t *ent)
 	ent->client->showscores = true;
 	DeathmatchScoreboard (ent);
 }
+//////////////////////////////////////////////////////////////////////////////////////////////Spidey MOD
+///////////////////////////////////////////Spidey Sense
+//Spidey Counter Display
+
+/*
+edict_t* Cmd_spidey_scan(vec3_t origin)
+{
+	//spidey_enemycount = 0;
+	edict_t* per = NULL;
+	while ((per = findradius(per, origin, 10000)) != NULL)
+	{
+
+		if (!per->takedamage)
+			continue;
+		//spidey_enemycount++;
+		Cmd_SpideyS(per);
+		break;
+	}
+	return per;
+}
+*/
+
+void spideyCt(edict_t* ent)
+{
+	char	string[1024];
+	char* sk;
+
+	if (skill->value == 0)
+		sk = "easy";
+	else if (skill->value == 1)
+		sk = "medium";
+	else if (skill->value == 2)
+		sk = "hard";
+	else
+		sk = "hard+";
+
+	// send the layout
+	/*
+	* "xv 202 yv 12 string2 \"%s\" "		// skill
+		"xv 0 yv 24 cstring2 \"%s\" "		// level name
+		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
+		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
+		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
+		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" "
+	*/
+	Com_sprintf(string, sizeof(string),
+		"xv 32 yv 8 picn spideyct "
+		"xv 0 yv 24 cstring2 \"%s\" "		// count
+		,
+		sk,
+		spidey_enemycount,
+		game.helpmessage1,
+		game.helpmessage2,
+		level.killed_monsters, level.total_monsters,
+		level.found_goals, level.total_goals,
+		level.found_secrets, level.total_secrets);
+
+	gi.WriteByte(svc_layout);
+	gi.WriteString(string);
+	gi.unicast(ent, true);
+}
+void Cmd_SpideyCt(edict_t* ent)
+{
+	
+	// this is for backwards compatability
+	if (deathmatch->value)
+	{
+		Cmd_Score_f(ent);
+		return;
+	}
+
+	ent->client->showinventory = false;
+	ent->client->showscores = false;
+
+	if (ent->client->showhelp && (ent->client->pers.game_helpchanged == game.helpchanged))
+	{
+		ent->client->showhelp = false;
+		return;
+	}
+
+	ent->client->showhelp = true;
+	ent->client->pers.helpchanged = 0;
+	spideyCt(ent);
+}
+
+
+
+/*
+==================
+Cmd_SpideyS
+
+spidey sense
+==================
+*/
+
+void spideySr(edict_t* ent)
+{
+	char	string[1024];
+	char* sk;
+
+	if (skill->value == 0)
+		sk = "easy";
+	else if (skill->value == 1)
+		sk = "medium";
+	else if (skill->value == 2)
+		sk = "hard";
+	else
+		sk = "hard+";
+
+	// send the layout
+	/*
+	* "xv 202 yv 12 string2 \"%s\" "		// skill
+		"xv 0 yv 24 cstring2 \"%s\" "		// level name
+		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
+		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
+		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
+		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" "
+	*/
+	Com_sprintf(string, sizeof(string),
+		"xv 32 yv 8 picn spidey "			// background
+		,
+		sk,
+		level.level_name,
+		game.helpmessage1,
+		game.helpmessage2,
+		level.killed_monsters, level.total_monsters,
+		level.found_goals, level.total_goals,
+		level.found_secrets, level.total_secrets);
+
+	gi.WriteByte(svc_layout);
+	gi.WriteString(string);
+	gi.unicast(ent, true);
+}
+
+
+void Cmd_SpideyS(edict_t* ent)
+{
+	// this is for backwards compatability
+	if (deathmatch->value)
+	{
+		Cmd_Score_f(ent);
+		return;
+	}
+
+	ent->client->showinventory = false;
+	ent->client->showscores = false;
+
+	if (ent->client->showhelp && (ent->client->pers.game_helpchanged == game.helpchanged))
+	{
+		ent->client->showhelp = false;
+		return;
+	}
+
+	ent->client->showhelp = true;
+	ent->client->pers.helpchanged = 0;
+	spideySr(ent);
+}
+
+/*
+edict_t* Cmd_spidey_scan(vec3_t origin)
+{	
+	//spidey_enemycount = 0;
+	edict_t* per = NULL;
+	while ((per = findradius(per, origin, 10000)) != NULL)
+	{
+		
+		if (!per->takedamage)
+			continue;
+		//spidey_enemycount++;
+		Cmd_SpideyS(per);
+		break;
+	}
+	return per;
+}
+*/
+
+/*
+==================
+Cmd_SpideyS
+
+Display the current help message
+==================
+*/
+
+
 
 
 /*
@@ -299,6 +484,8 @@ HelpComputer
 Draw help computer.
 ==================
 */
+
+///////////////////////////////////////////Spidey Help Screen
 void HelpComputer (edict_t *ent)
 {
 	char	string[1024];
@@ -314,14 +501,17 @@ void HelpComputer (edict_t *ent)
 		sk = "hard+";
 
 	// send the layout
-	Com_sprintf (string, sizeof(string),
-		"xv 32 yv 8 picn help "			// background
-		"xv 202 yv 12 string2 \"%s\" "		// skill
+	/*
+	* "xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
 		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
 		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
 		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
-		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
+		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" "
+	*/
+	Com_sprintf(string, sizeof(string),
+		"xv 45 yv 8 picn help "			// background
+		,
 		sk,
 		level.level_name,
 		game.helpmessage1,

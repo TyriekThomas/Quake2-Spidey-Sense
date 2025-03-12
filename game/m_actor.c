@@ -19,6 +19,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // g_actor.c
 
+//////////////////////////////////// Spidey MOD
+//Give the actor 5 different spidey actions
+//Action 1: Crawl
+//Action 2: Leap/Hop
+//Action 3: Slide
+//Action 4: Push
+//Action 5: Yank/PULL
+
+//////////////////////////////////// Spidey MOD
+
+
+
 #include "g_local.h"
 #include "m_actor.h"
 
@@ -607,3 +619,4 @@ void SP_target_actor (edict_t *self)
 
 	gi.linkentity (self);
 }
+

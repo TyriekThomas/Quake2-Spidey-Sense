@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 #include "g_local.h"
+#include "g_web.h"
 
 
 qboolean	Pickup_Weapon (edict_t *ent, edict_t *other);
@@ -1285,8 +1286,82 @@ gitem_t	itemlist[] =
 	// WEAPONS 
 	//
 
-/* weapon_blaster (.3 .3 1) (-16 -16 -16) (16 16 16)
+///////////////////////////////////////////////////////////////////////////////////////////////// Spidey MOD
+
+/* weapon_grapple (.3 .3 1) (-16 -16 -16) (16 16 16)
 always owned, never in the world
+*////WEB WEAPONS- Weapon1: WEB Location, Weapon2: WEB PULLER, Weapon3: WEB SHOOTER
+
+///////////WEB
+	{
+		"weapon_web",
+		NULL,
+		Use_Weapon,
+		NULL,
+		Weapon_WEB,
+		"misc/w_pkup.wav",
+		NULL, 0,
+		"models/weapons/grapple/tris.md2",
+		/* icon */		"w_grapple",
+		/* pickup */	"WEB",
+				0,
+				0,
+				NULL,
+				IT_WEAPON,
+				WEAP_WEB,
+				NULL,
+				0,
+				/* precache */ "weapons/web/grfire.wav weapons/web/grpull.wav weapons/web/grhang.wav weapons/web/grreset.wav weapons/web/grhit.wav"
+	},
+//////////
+//////////////WEB PULLER
+	{
+		"weapon_webpuller",
+		NULL,
+		Use_Weapon,
+		NULL,
+		Weapon_WEBPULLER,
+		"misc/w_pkup.wav",
+		NULL, 0,
+		"models/weapons/grapple/tris.md2",
+		/* icon */		"w_grapple",
+		/* pickup */	"WEBPULLER",
+				0,
+				0,
+				NULL,
+				IT_WEAPON,
+				WEAP_WEBPULLER,
+				NULL,
+				0,
+				/* precache */ "weapons/web/grfire.wav weapons/web/grpull.wav weapons/web/grhang.wav weapons/web/grreset.wav weapons/web/grhit.wav"
+	},
+			//////////
+			///////////WEBSHOOTER
+	{
+		"weapon_webshooter",
+		NULL,
+		Use_Weapon,
+		NULL,
+		Weapon_WEBSHOOTER,
+		"misc/w_pkup.wav",
+		NULL, 0,
+		"models/weapons/grapple/tris.md2",
+		/* icon */		"w_grapple",
+		/* pickup */	"WEBSHOOTER",
+				0,
+				0,
+				NULL,
+				IT_WEAPON,
+				WEAP_WEBSHOOTER,
+				NULL,
+				0,
+				/* precache */ "weapons/web/grfire.wav weapons/web/grpull.wav weapons/web/grhang.wav weapons/web/grreset.wav weapons/web/grhit.wav"
+	},
+			//////////
+	///////////////////////////////////////////////////////////////////////////////////////////////// Spidey MOD
+
+
+/* weapon_blaster (.3 .3 1) (-16 -16 -16) (16 16 16)always owned, never in the world
 */
 	{
 		"weapon_blaster", 

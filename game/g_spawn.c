@@ -783,6 +783,15 @@ char *dm_statusbar =
 ;
 
 
+
+void Cmd_spideyLoc(edict_t* ent) {
+	edict_t* loc1; edict_t* loc2; edict_t* loc3;
+	loc1 = SelectCoopSpawnPoint(ent);
+	loc2 = SelectCoopSpawnPoint(ent);
+	loc3 = SelectCoopSpawnPoint(ent);
+	SpawnEntities("base1", "monster_tank", game.spawnpoint[0]);
+
+}
 /*QUAKED worldspawn (0 0 0) ?
 
 Only used for the world.
@@ -857,7 +866,7 @@ void SP_worldspawn (edict_t *ent)
 
 	snd_fry = gi.soundindex ("player/fry.wav");	// standing in lava / slime
 
-	PrecacheItem (FindItem ("Blaster"));
+	PrecacheItem (FindItem ("WEB"));
 
 	gi.soundindex ("player/lava1.wav");
 	gi.soundindex ("player/lava2.wav");
@@ -903,7 +912,7 @@ void SP_worldspawn (edict_t *ent)
 	gi.modelindex ("#w_hyperblaster.md2");
 	gi.modelindex ("#w_railgun.md2");
 	gi.modelindex ("#w_bfg.md2");
-
+	gi.modelindex("#w_grapple.md2");
 	//-------------------
 
 	gi.soundindex ("player/gasp1.wav");		// gasping for air

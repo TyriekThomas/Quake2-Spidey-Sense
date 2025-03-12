@@ -431,7 +431,6 @@ void Cmd_Use_f (edict_t *ent)
 	it->use (ent, it);
 }
 
-
 /*
 ==================
 Cmd_Drop_f
