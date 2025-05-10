@@ -1,5 +1,5 @@
 //*By Tyriek Thomas
- Tyriek Thomas’s GitHub HomePage[Tyriek’s GitHub](https://www.github.com/tyriekt).
+ Tyriek Thomas’s GitHub HomePage[Tyriek’s GitHub](https://www.github.com/tyriekthomas).
 
 ![clip_002](https://github.com/user-attachments/assets/653c7180-9a43-4416-9c6e-9a4007d3dcad)
 
