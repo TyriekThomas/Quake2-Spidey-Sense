@@ -1,13 +1,14 @@
 //*By Tyriek Thomas
  Tyriek Thomas’s GitHub HomePage[Tyriek’s GitHub](https://www.github.com/tyriekt).
 
+![clip_002](https://github.com/user-attachments/assets/653c7180-9a43-4416-9c6e-9a4007d3dcad)
 
 
 
 _//* Readme.txt for the Quake II: Spidey Mod
 The main emphasis of this mod is to port over the many abilities and features of Marvel’s Spiderman character. Fundamentally the game is no longer just an RPG shooting franchise, The Spidey MOD for Quake II integrates a Spidey Rescue Mission storyline with the goal of rescuing as many people as possible.//*
   
-![Screen Shot 2025-03-27 at 3 49 54 PM](https://github.com/user-attachments/assets/d372b2cc-f9e0-44e4-ad62-504dcc6f7111)
+![clip_004](https://github.com/user-attachments/assets/f155c1f5-5362-40fe-bb8d-fc0d9ce75930)
 
 _//* Help menu_
 To view the help menu press the “h” key for options
@@ -19,14 +20,14 @@ Press the ‘1’ key to access the main WEB weapon mode.
 Press the ‘2’ key to access the shooter WEBPuller weapon mode.
 Press the ‘3’ key to access the shooter WEBShooter weapon mode.
 
-![Screen Shot 2025-03-27 at 3 50 21 PM](https://github.com/user-attachments/assets/3e7bbee5-1b8f-4a7e-a1c1-e5fefca7dcff)
+![clip_005](https://github.com/user-attachments/assets/03a067e7-47e4-4f20-970f-4964f50f34e7)
 
 _//* There is one main stable in the player’s inventory called the WEB and the WEB weapon has three different modes. The default mode is self titled and allows the main Spidey character to WEB around the level and quickly get to unreachable locations.
   
 
       The next weapon mode in the player’s inventory is the WEBPuller which is a weapon used to grab and pull enemies and bring them to a closer range for the player. This WEBpuller can be used to capture the bad guys, literally.
+![clip_006](https://github.com/user-attachments/assets/80271755-447b-4a97-8b54-0e84ce2938d2)
 
-![Screen Shot 2025-03-27 at 3 50 38 PM](https://github.com/user-attachments/assets/e077a304-fb0f-4ec0-92e9-59a18577d585)
 
       This final weapon is the heavy duty WEBShooter which inflicts damage and repels the enemy far away. This comes in handy for handling multiple enemies at once.
 //*
@@ -36,10 +37,11 @@ _//* There is one main stable in the player’s inventory called the WEB and the
 _//*Spidey Rescue Missions
 As the protagonist, Spidey is responsible for rescuing saving items and people from harm's way. Points get collected when the player completes a mission //*
 
+![clip_012](https://github.com/user-attachments/assets/38df4b7a-8850-4495-866d-725405bcef3a)
 
 _//*Spidey Sense mission initiation
 Are your Spidey senses tingling? Perhaps you are within range of an scene where an item or person needs rescuing. You will get an alert that your Spidey senses are tingling and this is the initiation of a rescue mission.
-  
+
 
 -//*Spidey has multiple different Spidey moves actions such as crawl, leap/hop, slide, push, yank and pull.
 
